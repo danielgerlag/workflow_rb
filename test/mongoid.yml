@@ -1,0 +1,10 @@
+development:
+  clients:
+    default:
+      database: mongoid
+      hosts:
+        - localhost:27017
+    workflow_rb:
+      database: workflow-ruby
+      hosts:
+        - localhost:27017
