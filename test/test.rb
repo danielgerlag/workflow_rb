@@ -1,9 +1,10 @@
-lib = File.expand_path('../../lib', __FILE__)
-#puts lib
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+lib1 = File.expand_path('../../workflow_rb/lib', __FILE__)
+lib2 = File.expand_path('../../workflow_rb-mongo/lib', __FILE__)
+$LOAD_PATH.unshift(lib1) unless $LOAD_PATH.include?(lib1)
+$LOAD_PATH.unshift(lib2) unless $LOAD_PATH.include?(lib2)
 
 require 'workflow_rb'
-require './mongo_persistence_provider'
+require 'workflow_rb/mongo'
 require 'mongoid'
 
 Mongoid.load!("mongoid.yml", :development)
@@ -95,7 +96,7 @@ logger.level = Logger::DEBUG
 
 host = WorkflowRb::WorkflowHost.new
 #host.use_logger(logger)
-host.use_persistence(MongoPersistenceProvider.new)
+host.use_persistence(WorkflowRb::Mongo::MongoPersistenceProvider.new)
 host.register_workflow(HelloWorld_Workflow)
 host.register_workflow(EventSample_Workflow)
 host.start

@@ -7,5 +7,4 @@
 /pkg/
 /spec/reports/
 /tmp/
-/.idea
-/workflow_rb-0.1.0.gem
+/workflow_rb-mongo-0.1.0.gem
