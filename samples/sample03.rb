@@ -1,19 +1,5 @@
 require 'workflow_rb'
 
-# Define some steps
-class HelloWorld < WorkflowRb::StepBody
-  def run(context)
-    puts 'Hello world'
-    WorkflowRb::ExecutionResult.NextStep
-  end
-end
-
-class GoodbyeWorld < WorkflowRb::StepBody
-  def run(context)
-    puts 'Goodbye world'
-    WorkflowRb::ExecutionResult.NextStep
-  end
-end
 
 # Define a workflow to put the steps together
 class HelloWorld_Workflow
@@ -23,8 +9,14 @@ class HelloWorld_Workflow
 
   def build(builder)
     builder
-        .start_with(HelloWorld)
-        .then(GoodbyeWorld)
+        .start_step do |context|
+          puts 'Hello world'
+          WorkflowRb::ExecutionResult.NextStep
+        end
+        .then_step do |context|
+          puts 'Goodbye world'
+          WorkflowRb::ExecutionResult.NextStep
+        end
   end
 end
 

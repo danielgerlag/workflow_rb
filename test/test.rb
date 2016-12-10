@@ -24,7 +24,7 @@ end
 
 class GoodbyeWorld < WorkflowRb::StepBody
   def run(context)
-    puts "Good bye world - #{context.step.name}"
+    puts "Goodbye world - #{context.step.name}"
     WorkflowRb::ExecutionResult.NextStep
   end
 end
@@ -65,9 +65,9 @@ class HelloWorld_Workflow
         .then(CustomMessage)
         .input(:message) {|data| "The answer is #{data.value3}"}
         .then_step do |context|
-      puts "middle 3"
-      WorkflowRb::ExecutionResult.NextStep
-    end
+          puts "middle 3"
+          WorkflowRb::ExecutionResult.NextStep
+        end
         .then(GoodbyeWorld)
         .name("your step")
 
