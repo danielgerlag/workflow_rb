@@ -8,4 +8,4 @@
 /spec/reports/
 /tmp/
 /.idea
-/workflow_rb-0.1.0.gem
+/*.gem
