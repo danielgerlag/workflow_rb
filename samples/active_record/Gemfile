@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 source "https://rubygems.org" do
   gem "workflow_rb"
+  gem "workflow_rb/db"
+  gem "activerecord"
+  gem "pg"
 end
 

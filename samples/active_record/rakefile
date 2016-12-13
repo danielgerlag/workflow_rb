@@ -1,23 +1,12 @@
-
-#!/usr/bin/env ruby
-
-##http://blog.aizatto.com/2007/05/27/activerecord-migrations-without-rails/
-# $ rake db:migrate VERSION=0
-
-require 'rubygems'
-require 'rake'
-require 'active_record'
+require 'workflow_rb/db'
 require 'yaml'
-require 'zlib'
-#require '../test/ar_test'
-
+require "active_record"
+require "pg"
 
 namespace :db do
   db_config = YAML.load_file('database.yml')
-
-  puts db_config
-
   task :create do
+    ActiveRecord::Base.establish_connection(db_config["admin"])
     ActiveRecord::Base.connection.create_database(db_config["workflow"])
     puts "Database created."
   end
@@ -25,12 +14,13 @@ namespace :db do
   desc "Run migrations"
   task :migrate do
     ActiveRecord::Base.establish_connection(db_config['workflow'])
-    ActiveRecord::Migrator.migrate('migrate', ENV["VERSION"] ? ENV["VERSION"].to_i : nil)
+    schema = WorkflowRb::Db::Schema.new
+    schema.up
   end
 
   desc "Drop the database"
   task :drop do
-    ActiveRecord::Base.establish_connection(db_config_admin)
+    ActiveRecord::Base.establish_connection(db_config["admin"])
     ActiveRecord::Base.connection.drop_database(db_config["workflow"])
     puts "Database deleted."
   end

@@ -1,9 +1,8 @@
 require 'workflow_rb'
-require '../test/active_record/active_record_persistence_provider'
+require 'workflow_rb/db'
 
 db_config = YAML.load_file('database.yml')
 WorkflowRb::Db::WorkflowRecord.establish_connection(db_config['workflow'])
-
 
 # Define some steps
 class HelloWorld < WorkflowRb::StepBody
@@ -13,23 +12,33 @@ class HelloWorld < WorkflowRb::StepBody
   end
 end
 
-class GoodbyeWorld < WorkflowRb::StepBody
+class CustomMessage < WorkflowRb::StepBody
+  attr_accessor :message
   def run(context)
-    puts 'Goodbye world'
+    puts @message
     WorkflowRb::ExecutionResult.NextStep
   end
 end
 
+# Define a class to hold workflow data
+class MyData
+  attr_accessor :my_value
+end
+
+
 # Define a workflow to put the steps together
-class HelloWorld_Workflow
-  ID = 'hello world'
+class EventSample_Workflow
+  ID = 'event-sample'
   VERSION = 1
-  DATA_CLASS = nil
+  DATA_CLASS = MyData
 
   def build(builder)
     builder
         .start_with(HelloWorld)
-        .then(GoodbyeWorld)
+        .wait_for('my-event', '0')
+          .output(:my_value) { |step| step.event_data }
+        .then(CustomMessage)
+          .input(:message) {|data| "The event data is #{data.my_value}"}
   end
 end
 
@@ -42,13 +51,18 @@ host.use_persistence(WorkflowRb::Db::ActiveRecordPersistenceProvider.new)
 # host.use_logger(logger)
 
 # register our workflows with the host
-host.register_workflow(HelloWorld_Workflow)
+host.register_workflow(EventSample_Workflow)
 
 # start the host
 host.start
 
 # start a new workflow
-host.start_workflow('hello world', 1)
+host.start_workflow('event-sample', 1)
+
+puts 'Enter value to publish:'
+event_data = gets
+
+host.publish_event('my-event', '0', event_data)
 
 gets
 host.stop
