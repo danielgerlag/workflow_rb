@@ -12,6 +12,7 @@ module WorkflowRb
         rec = WorkflowRb::Db::WorkflowInstance.new
         rec.pack(workflow)
         rec.save!
+        workflow.id = rec.id
         rec.id
       end
 
@@ -42,6 +43,7 @@ module WorkflowRb
         rec = WorkflowRb::Db::EventSubscription.new
         rec.pack(subscription)
         rec.save!
+        subscription.id = rec.id
         rec.id
       end
 
