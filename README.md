@@ -234,7 +234,7 @@ host.start_workflow('hello world', 1)
 ### Persistence
 
 Since workflows are typically long running processes, they will need to be persisted to storage between steps.
-There are several persistence providers available as seperate Nuget packages.
+There are several persistence providers available as seperate gems.
 
 * MemoryPersistenceProvider *(Default provider, for demo and testing purposes)*
 * [MongoDB](workflow_rb-mongo)
