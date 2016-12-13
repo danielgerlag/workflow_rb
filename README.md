@@ -238,10 +238,7 @@ There are several persistence providers available as seperate Nuget packages.
 
 * MemoryPersistenceProvider *(Default provider, for demo and testing purposes)*
 * [MongoDB](workflow_rb-mongo)
-* SQL Server *(coming soon...)*
-* PostgreSQL *(coming soon...)*
-* Sqlite *(coming soon...)*
-* Redis *(coming soon...)*
+* [ActiveRecord](workflow_rb-db)
 
 ### Multi-node clusters
 
