@@ -8,8 +8,22 @@ install:
   - cd workflow_rb
   - bundle
   - cd ..
+  - cd workflow_rb-db
+  - bundle
+  - cd ..
+  - cd workflow_rb-mongo
+  - bundle
+  - cd ..
+
+
     
 script:
   - cd workflow_db
+  - rake
+  - cd ..
+  - cd workflow_db-db
+  - rake
+  - cd ..
+  - cd workflow_db-mongo
   - rake
   - cd ..
