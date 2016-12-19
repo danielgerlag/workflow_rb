@@ -31,7 +31,7 @@ class EventSample_Workflow
   def build(builder)
     builder
         .start_with(HelloWorld)
-          .wait_for('my-event', '0')
+        .wait_for('my-event', '0')
           .output(:my_value) { |step| step.event_data }
         .then(CustomMessage)
           .input(:message) {|data| "The event data is #{data.my_value}"}
