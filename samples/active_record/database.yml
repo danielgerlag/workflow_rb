@@ -1,0 +1,19 @@
+workflow:
+  adapter: postgresql
+  encoding: unicode
+  database: workflow_rb
+  pool: 12
+  username: postgres
+  password: password
+  host: localhost
+  port: 5432
+
+admin:
+  adapter: postgresql
+  encoding: unicode
+  database: postgres
+  pool: 5
+  username: postgres
+  password: password
+  host: localhost
+  port: 5432

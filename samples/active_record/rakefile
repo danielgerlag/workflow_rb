@@ -1,0 +1,32 @@
+require 'workflow_rb/db'
+require 'yaml'
+require "active_record"
+require "pg"
+
+namespace :db do
+  db_config = YAML.load_file('database.yml')
+  task :create do
+    ActiveRecord::Base.establish_connection(db_config["admin"])
+    ActiveRecord::Base.connection.create_database(db_config["workflow"])
+    puts "Database created."
+  end
+
+  desc "Run migrations"
+  task :migrate do
+    ActiveRecord::Base.establish_connection(db_config['workflow'])
+    schema = WorkflowRb::Db::Schema.new
+    schema.up
+  end
+
+  desc "Drop the database"
+  task :drop do
+    ActiveRecord::Base.establish_connection(db_config["admin"])
+    ActiveRecord::Base.connection.drop_database(db_config["workflow"])
+    puts "Database deleted."
+  end
+
+  desc "Reset the database"
+  task :reset => [:drop, :create, :migrate]
+
+
+end

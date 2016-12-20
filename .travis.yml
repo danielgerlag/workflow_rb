@@ -1,0 +1,29 @@
+sudo: false
+language: ruby
+rvm:
+  - 2.2.4
+before_install: gem install bundler -v 1.13.6
+
+install:
+  - cd workflow_rb
+  - bundle
+  - cd ..
+  - cd workflow_rb-db
+  - bundle
+  - cd ..
+  - cd workflow_rb-mongo
+  - bundle
+  - cd ..
+
+
+    
+script:
+  - cd workflow_rb
+  - rake
+  - cd ..
+  - cd workflow_rb-db
+  - rake
+  - cd ..
+  - cd workflow_rb-mongo
+  - rake
+  - cd ..

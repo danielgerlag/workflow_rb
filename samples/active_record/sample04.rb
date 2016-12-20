@@ -1,4 +1,8 @@
 require 'workflow_rb'
+require 'workflow_rb/db'
+
+db_config = YAML.load_file('database.yml')
+WorkflowRb::Db::WorkflowRecord.establish_connection(db_config['workflow'])
 
 # Define some steps
 class HelloWorld < WorkflowRb::StepBody
@@ -40,7 +44,7 @@ end
 
 # create host
 host = WorkflowRb::WorkflowHost.new
-
+host.use_persistence(WorkflowRb::Db::ActiveRecordPersistenceProvider.new)
 # uncomment this section to get more detailed logs
 # logger = Logger.new(STDOUT)
 # logger.level = Logger::DEBUG
