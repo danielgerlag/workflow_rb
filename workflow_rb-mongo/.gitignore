@@ -8,3 +8,4 @@
 /spec/reports/
 /tmp/
 /workflow_rb-mongo-0.1.0.gem
+/*.gem
