@@ -1,0 +1,7 @@
+# encoding: utf-8
+require 'certified'
+
+site 'http://community.opscode.com/api/v1'
+
+cookbook "apt"
+cookbook "mongodb", {}
