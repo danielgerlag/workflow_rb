@@ -24,6 +24,4 @@ script:
   - cd workflow_rb-db
   - rake
   - cd ..
-  - cd workflow_rb-mongo
-  - rake
-  - cd ..
+  
