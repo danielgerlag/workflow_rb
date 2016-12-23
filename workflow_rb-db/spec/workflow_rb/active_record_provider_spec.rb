@@ -17,8 +17,8 @@ describe WorkflowRb::Db::ActiveRecordPersistenceProvider do
     workflow.version = 1
     workflow.definition_id = 'test'
     workflow.status = WorkflowRb::WorkflowStatus::RUNNABLE
-    workflow.next_execution = Time.now.utc
-    workflow.create_time = Time.now.utc
+    workflow.next_execution = Time.now.utc.change(:usec => 0)
+    workflow.create_time = Time.now.utc.change(:usec => 0)
     workflow.complete_time = nil
     workflow.data = nil
     workflow.description = nil
