@@ -1,4 +1,4 @@
-# WorkflowRb
+# WorkflowRb  [![Build Status](https://travis-ci.org/danielgerlag/workflow_rb.svg?branch=master)](https://travis-ci.org/danielgerlag/workflow_rb)
 
 WorkflowRb is a light weight workflow engine for Ruby.  It supports pluggable persistence and concurrency providers to allow for multi-node clusters.
 
