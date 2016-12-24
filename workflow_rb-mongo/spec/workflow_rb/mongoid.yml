@@ -1,0 +1,10 @@
+test:
+  clients:
+    default:
+      database: workflow_tests
+      hosts:
+        - localhost:27018
+    workflow_rb:
+      database: workflow_tests
+      hosts:
+        - localhost:27018

@@ -1,2 +1,18 @@
-require "bundler/gem_tasks"
+require 'bundler/gem_tasks'
+require 'rspec/core/rake_task'
+require 'rake/hooks'
+
+RSpec::Core::RakeTask.new(:spec)
+
 task :default => :spec
+
+before :spec do
+  `docker pull mongo`
+  `docker run -p 27018:27017 --name workflowrb_mongo_test -d mongo`
+end
+
+after :spec do
+  `docker kill workflowrb_mongo_test`
+  `docker rm workflowrb_mongo_test`
+end
+
