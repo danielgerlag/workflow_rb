@@ -1,5 +1,10 @@
-sudo: false
+sudo: required
+
+services:
+  - docker
+
 language: ruby
+
 rvm:
   - 2.2.4
 before_install: gem install bundler -v 1.13.6
@@ -24,4 +29,6 @@ script:
   - cd workflow_rb-db
   - rake
   - cd ..
-  
+  - cd workflow_rb-mongo
+  - rake
+  - cd ..
